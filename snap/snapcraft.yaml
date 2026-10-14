@@ -1,0 +1,67 @@
+name: harlequin
+base: core26
+version: '2.16.1'
+title: Harlequin
+summary: The SQL IDE for your terminal
+description: |
+  Harlequin is a SQL IDE that runs in the terminal. It has a data catalog,
+  a query editor with autocomplete and a results viewer. DuckDB and SQLite
+  work out of the box; the Postgres and MySQL adapters are included too.
+
+  **Examples**
+
+     harlequin ./my-data.duckdb
+     harlequin -a sqlite ./my-data.db
+     harlequin -a postgres "postgres://user:password@localhost:5432/mydb"
+
+  **File access**
+
+  Harlequin can use database files in your home directory. To also use USB
+  drives and other removable media (/media, /mnt), run:
+
+     sudo snap connect harlequin:removable-media
+license: MIT
+grade: stable
+confinement: strict
+website: https://harlequin.sh
+source-code: https://github.com/tconbeer/harlequin
+issues: https://github.com/tconbeer/harlequin/issues
+
+platforms:
+  amd64:
+  arm64:
+
+apps:
+  harlequin:
+    command: bin/harlequin
+    completer: share/bash-completion/completions/harlequin
+    plugs:
+      - home
+      - removable-media
+      - network
+  hsql:
+    command: bin/hsql
+    plugs:
+      - home
+      - removable-media
+      - network
+
+parts:
+  harlequin:
+    plugin: uv
+    source: https://github.com/tconbeer/harlequin.git
+    source-tag: 'v2.16.1'
+    uv-extras:
+      - postgres
+      - mysql
+    build-snaps:
+      - astral-uv
+    stage-packages:
+      - python3-venv
+    override-build: |
+      craftctl default
+      ln -sf python3 "$CRAFT_PART_INSTALL/bin/python"
+      mkdir -p "$CRAFT_PART_INSTALL/share/bash-completion/completions"
+      _HARLEQUIN_COMPLETE=bash_source "$CRAFT_PART_INSTALL/bin/harlequin" \
+        > "$CRAFT_PART_INSTALL/share/bash-completion/completions/harlequin"
+      install -Dm644 LICENSE "$CRAFT_PART_INSTALL/share/doc/harlequin/LICENSE"
