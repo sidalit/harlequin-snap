@@ -26,6 +26,7 @@ confinement: strict
 website: https://harlequin.sh
 source-code: https://github.com/tconbeer/harlequin
 issues: https://github.com/tconbeer/harlequin/issues
+contact: https://github.com/sidalit/harlequin-snap/issues
 
 platforms:
   amd64:
