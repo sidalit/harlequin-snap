@@ -35,7 +35,7 @@ The headless `hsql` command is available as `harlequin.hsql`.
 
 ## Update to a new upstream release
 
-Change `source-tag` in `snap/snapcraft.yaml`, then rebuild. The version is taken from upstream's `pyproject.toml`.
+Change `version` in `snap/snapcraft.yaml`, then rebuild.
 
 ## Automation
 

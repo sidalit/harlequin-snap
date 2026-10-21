@@ -1,6 +1,6 @@
 name: harlequin
 base: core26
-adopt-info: harlequin
+version: '2.16.2'
 title: Harlequin
 summary: The SQL IDE for your terminal
 description: |
@@ -53,8 +53,7 @@ parts:
   harlequin:
     plugin: uv
     source: https://github.com/tconbeer/harlequin.git
-    # renovate: depName=tconbeer/harlequin
-    source-tag: 'v2.16.2'
+    source-tag: v$SNAPCRAFT_PROJECT_VERSION
     uv-extras:
       - postgres
       - mysql
@@ -62,10 +61,6 @@ parts:
       - astral-uv
     stage-packages:
       - python3-venv
-    override-pull: |
-      craftctl default
-      version=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
-      craftctl set version="$version"
     override-build: |
       craftctl default
       ln -sf python3 "$CRAFT_PART_INSTALL/bin/python"
