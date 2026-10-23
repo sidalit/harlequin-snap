@@ -26,8 +26,12 @@ confinement: strict
 assumes:
   - snapd2.78
 website: https://harlequin.sh
-source-code: https://github.com/tconbeer/harlequin
-issues: https://github.com/tconbeer/harlequin/issues
+source-code:
+  - https://github.com/tconbeer/harlequin
+  - https://github.com/sidalit/harlequin-snap
+issues:
+  - https://github.com/tconbeer/harlequin/issues
+  - https://github.com/sidalit/harlequin-snap/issues
 contact: https://github.com/sidalit/harlequin-snap/issues
 
 platforms:
