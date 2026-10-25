@@ -1,46 +1,70 @@
-# Harlequin snap
+<div align="center">
+
+<img src="snap/gui/harlequin.png" alt="Harlequin logo" width="128" />
+
+# Harlequin
+
+**The SQL IDE for your terminal**
 
 [![harlequin](https://snapcraft.io/harlequin/badge.svg)](https://snapcraft.io/harlequin)
+[![Base: core26](https://img.shields.io/badge/Base-core26-2C8C3C?logo=canonical&logoColor=white)](https://snapcraft.io/core26)
+![Confinement: strict](https://img.shields.io/badge/Confinement-strict-2C8C3C)
+[![Maintainer: sidaliteir](https://img.shields.io/badge/Maintainer-sidaliteir-2C8C3C?logo=snapcraft&logoColor=white)](https://snapcraft.io/publisher/sidaliteir)
+![Architectures: amd64 and arm64](https://img.shields.io/badge/Architectures-amd64%20%7C%20arm64-2C8C3C?logo=linux&logoColor=white)
 
-Snap packaging for [Harlequin](https://github.com/tconbeer/harlequin), the SQL IDE for your terminal. It includes the DuckDB, SQLite, Postgres and MySQL adapters.
+[Getting Started](#getting-started) · [Configure](#configure) · [Limitations](#limitations) · [Build](#build) · [Support](#support) · [License](#license)
 
-Unofficial build, not affiliated with or endorsed by the Harlequin project.
+Unofficial snap packaging for [Harlequin](https://github.com/tconbeer/harlequin), a terminal SQL editor with DuckDB, SQLite, Postgres and MySQL adapters.
 
-## Build
+</div>
 
-```bash
-snapcraft pack
-```
+---
 
-## Install and try
+## Getting Started
 
 <a href="https://snapcraft.io/harlequin"><img alt="Get it from the Snap Store" src="https://snapcraft.io/en/dark/install.svg" width="180"></a>
 
 ```bash
 sudo snap install harlequin
-sudo snap connect harlequin:removable-media   # optional: /media, /mnt
 harlequin ./my-data.duckdb
-harlequin -a sqlite ./my-data.db
 ```
 
-The headless `hsql` command is available as `harlequin.hsql`.
+Use `harlequin -a sqlite ./my-data.db` for SQLite. The headless command is available as `harlequin.hsql`.
 
-## Known limitations
+## Configure
 
-- Requires snapd 2.78 or newer. Container cgroup restrictions can still prevent DuckDB and `hsql` from starting.
-- Config and cache live under `~/snap/harlequin/current`. Use `--config-path` for an accessible config file; hidden files directly under your normal home are unavailable.
-- Clipboard copying requires a terminal that supports OSC 52.
-- Host editors and built-in SSH tunnels are unavailable. Run SSH tunnels outside the snap and connect to the forwarded port.
-- Only the bundled DuckDB, SQLite, Postgres and MySQL adapters are available.
+There are no `snap set` options. Configure Harlequin through its command-line options or configuration file.
 
-## Update to a new upstream release
+Config and cache use `~/snap/harlequin/current`. Select an accessible config file with `harlequin --config-path ~/harlequin.toml`.
 
-Change `version` in `snap/snapcraft.yaml`, then rebuild.
+To access files under `/media` or `/mnt`:
 
-## Automation
+```bash
+sudo snap connect harlequin:removable-media
+```
 
-Builds, publishing, and dependency updates use [snap-automation](https://github.com/sidalit/snap-automation).
+## Limitations
+
+- Requires snapd 2.78 or newer. Container cgroup restrictions can still prevent DuckDB and `harlequin.hsql` from starting.
+- Hidden files directly under your normal home directory are inaccessible; keep databases and config in an accessible folder.
+- Clipboard copying requires terminal support for OSC 52.
+- Host editors and built-in SSH tunnels are unavailable. Create SSH tunnels outside the snap and connect to the forwarded port.
+- Only the four bundled database adapters are available.
+
+## Build
+
+```bash
+git clone https://github.com/sidalit/harlequin-snap.git
+cd harlequin-snap
+sudo snap install snapcraft --classic
+snapcraft pack
+```
+
+## Support
+
+- **Installation or snap issues:** [open a packaging issue](https://github.com/sidalit/harlequin-snap/issues).
+- **Application bugs:** [report them upstream](https://github.com/tconbeer/harlequin/issues).
 
 ## License
 
-The packaging is MIT-licensed (see `LICENSE`). Harlequin is MIT-licensed; its dependencies carry their own licenses.
+Snap packaging: [MIT](https://github.com/sidalit/harlequin-snap/blob/main/LICENSE).
