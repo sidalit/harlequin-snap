@@ -1,6 +1,6 @@
 name: harlequin
 base: core26
-version: '2.16.2'
+version: '2.17.0'
 title: Harlequin
 icon: snap/gui/harlequin.png
 summary: The SQL IDE for your terminal
