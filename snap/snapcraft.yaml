@@ -43,12 +43,20 @@ apps:
   harlequin:
     command: bin/harlequin
     completer: share/bash-completion/completions/harlequin
+    environment:
+      XDG_CONFIG_HOME: $SNAP_USER_DATA/.config
+      XDG_CACHE_HOME: $SNAP_USER_DATA/.cache
+      XDG_STATE_HOME: $SNAP_USER_DATA/.local/state
     plugs:
       - home
       - removable-media
       - network
   hsql:
     command: bin/hsql
+    environment:
+      XDG_CONFIG_HOME: $SNAP_USER_DATA/.config
+      XDG_CACHE_HOME: $SNAP_USER_DATA/.cache
+      XDG_STATE_HOME: $SNAP_USER_DATA/.local/state
     plugs:
       - home
       - removable-media
